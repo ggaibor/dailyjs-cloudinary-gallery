@@ -15,10 +15,10 @@ var express = require('express')
 
 var app = express();
 
-app.locals.title = "Alex's Awesome Gallery";
+app.locals.title = "Gabi's Awesome Gallery";
 
 app.configure(function(){
-  app.set('port', process.env.PORT || 3000);
+  app.set('port', process.env.PORT || 3004);
   app.set('views', __dirname + '/views');
   app.set('view engine', 'jade');
   app.use(express.favicon());
@@ -31,7 +31,7 @@ app.configure(function(){
 
 app.configure('development', function(){
   app.use(express.errorHandler());
-  cloudinary.config({ cloud_name: 'YOURS', api_key: 'YOURS', api_secret: 'YOURS' });
+  cloudinary.config({ cloud_name: 'cmswebclass-com', api_key: '854184817545678', api_secret: '1QZ4dNJ5AhcdIUlGE7GGT11fAdc' });
 });
 
 app.locals.api_key = cloudinary.config().api_key;
