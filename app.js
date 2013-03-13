@@ -11,14 +11,15 @@ var express = require('express')
   , cloudinary = require('cloudinary')
   , fs = require('fs')
   , crypto = require('crypto')
-  ;
+  , request = require ('request') 
+;
 
 var app = express();
 
 app.locals.title = "Gabi's Awesome Gallery";
 
 app.configure(function(){
-  app.set('port', process.env.PORT || 3004);
+  app.set('port', process.env.PORT || 3035);
   app.set('views', __dirname + '/views');
   app.set('view engine', 'jade');
   app.use(express.favicon());
@@ -42,6 +43,15 @@ app.get('/', function(req, res, next){
     res.render('index', { images: items.resources, cloudinary: cloudinary });
   });
 });
+
+app.get('/mta', function(req, res, next){
+  request('http://www.mta.info/status/serviceStatus.txt', function(error, response, body){
+    if (!error && response.statusCode == 200){
+      res.send (body)
+    }
+  })
+})
+
 
 app.post('/upload', function(req, res){
   var imageStream = fs.createReadStream(req.files.image.path, { encoding: 'binary' })
